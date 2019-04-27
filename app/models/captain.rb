@@ -19,7 +19,7 @@ class Captain < ActiveRecord::Base
     where("id IN (?)", self.sailors.pluck(:id) & self.motorboat_operators.pluck(:id))
 
   def self.non_sailors
-    includes(boats: :classifications).where("classifications.name <> ?","Sailboat").distinct  
+    where.not("id IN (?)", self.sailors.pluck(:id))
   end
   
 end
