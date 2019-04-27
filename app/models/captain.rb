@@ -7,8 +7,7 @@ class Captain < ActiveRecord::Base
   end
 
   def self.sailors
-    boats = Boat.joins(:boat_classifications, :classifications).where( "classifications.name = ?", "Sailboat").distinct
-    captains = boats.map {|boat| boat.captain}.compact
+    includes(boats: :classificaitons).where(classificaions: {name: "Sailboat"}).distinct
   end
 
 end
